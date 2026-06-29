@@ -3,7 +3,7 @@ const express = require('express');
 const config = require('./config');
 const { mountOidc, testDiscovery } = require('./oidc');
 const { loginPage, settingsPage, claimPage } = require('./views');
-const { runImportCaught, runImportLegacy } = require('../routes/caught');
+const { runImportCaught } = require('../routes/caught');
 const { getToken, csrfMiddleware } = require('./csrf');
 
 // ── Login rate limiting (per IP, resets on success) ───────────────────────────
@@ -342,15 +342,6 @@ function mountAuthRoutes(app, users, pool) {
     const u = await users.byId(Number(req.params.id));
     if (!u) return res.status(404).json({ error: 'User not found.' });
     const result = await runImportCaught(u.id, req.body);
-    if (result.error) return res.status(400).json(result);
-    res.json(result);
-  });
-
-  router.post('/admin/users/:id/import-caught/legacy', express.json({ limit: '20mb' }), async (req, res) => {
-    if (!needAdmin(req, res)) return;
-    const u = await users.byId(Number(req.params.id));
-    if (!u) return res.status(404).json({ error: 'User not found.' });
-    const result = await runImportLegacy(u.id, req.body);
     if (result.error) return res.status(400).json(result);
     res.json(result);
   });

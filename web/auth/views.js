@@ -587,7 +587,7 @@ function settingsPage(user, opts = {}) {
           var parsed;
           try { parsed = JSON.parse(ev.target.result); }
           catch(ex) { showMsg('<i class="bi bi-exclamation-triangle-fill"></i> File is not valid JSON: ' + ex.message, false); return; }
-          var url = fmt === 'legacy' ? '/api/import/caught/legacy' : '/api/import/caught';
+          var url = '/api/import/caught';
           showMsg('<i class="bi bi-arrow-repeat" style="animation:spin 1s linear infinite;display:inline-block"></i> Importing…', true);
           fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(parsed) })
             .then(function(r){ return r.json(); })
@@ -1547,8 +1547,6 @@ function adminTabHtml(list, currentUser, { error = null, notice = null, auth = {
           <a class="btn btn-sm btn-ghost" href="/admin/users/${u.id}/export-caught" download="living-pokedex-${esc(u.username)}-export.json" title="Download caught data"><i class="bi bi-file-earmark-arrow-down"></i>Export</a>
           <input type="file" id="ai-native-${u.id}" accept=".json" style="display:none">
           <button class="btn btn-sm btn-ghost" onclick="adminRunImport(${u.id},'native')" title="Import native export JSON"><i class="bi bi-file-earmark-arrow-up"></i>Import</button>
-          <input type="file" id="ai-legacy-${u.id}" accept=".json" style="display:none">
-          <button class="btn btn-sm btn-ghost" onclick="adminRunImport(${u.id},'legacy')" title="Import legacy backup JSON"><i class="bi bi-upload"></i>Import legacy</button>
           ${u.caught_count > 0 ? `<form method="post" action="/admin/users/${u.id}/clear-caught" onsubmit="return confirm('Clear all ${u.caught_count.toLocaleString()} caught records for ${esc(u.username)}? This cannot be undone.')"><button class="btn btn-sm btn-danger" type="submit" title="Clear all caught data"><i class="bi bi-x-octagon"></i>Clear caught</button></form>` : ''}
           ${u.id === currentUser.id ? '' : `<form method="post" action="/admin/users/${u.id}/delete" onsubmit="return confirm('Delete ${esc(u.username)} and all their caught data?')"><button class="btn btn-sm btn-danger" type="submit" title="Delete account"><i class="bi bi-trash3"></i></button></form>`}
         </div>
@@ -1625,7 +1623,7 @@ function adminTabHtml(list, currentUser, { error = null, notice = null, auth = {
           if (!file) return;
           var reader = new FileReader();
           reader.onload = function(e) {
-            var url = fmt === 'legacy' ? '/admin/users/' + userId + '/import-caught/legacy' : '/admin/users/' + userId + '/import-caught';
+            var url = '/admin/users/' + userId + '/import-caught';
             fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: e.target.result })
               .then(function(r) { return r.json(); })
               .then(function(d) {
