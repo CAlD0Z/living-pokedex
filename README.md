@@ -5,6 +5,9 @@ across every mainline game, from Red & Blue all the way to Scarlet & Violet and
 Legends: Z-A. Browse per-game dexes, see where each species can be caught, track
 shiny progress, and manage multiple trainers — all from one tidy web app.
 
+**🐙 GitHub:** https://github.com/CAlD0Z/living-pokedex  
+**🐳 Docker Hub:** https://hub.docker.com/r/caldoz/living-pokedex
+
 ![pokeball](https://raw.githubusercontent.com/CAlD0Z/living-pokedex/main/web/public/favicon.svg)
 
 ## Features
