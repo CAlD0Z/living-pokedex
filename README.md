@@ -39,7 +39,7 @@ You need [Docker](https://docs.docker.com/get-docker/) with the Compose plugin.
    reference data, and creates a starter admin account. This takes a minute or so
    — watch progress with `docker compose logs -f living-pokedex`.
 
-3. Open **http://localhost:8081** and sign in with the bootstrap admin:
+3. Open **http://localhost:3000** and sign in with the bootstrap admin:
 
    | Username | Password |
    | -------- | -------- |

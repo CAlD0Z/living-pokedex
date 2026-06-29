@@ -1,5 +1,5 @@
 # Living Pokédex — production stack.
-# Quick start:  docker compose up -d   then open http://localhost:8081
+# Quick start:  docker compose up -d   then open http://localhost:3000
 services:
   living-pokedex:
     image: caldoz/living-pokedex:latest
