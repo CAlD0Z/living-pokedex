@@ -5,7 +5,7 @@ services:
     image: caldoz/living-pokedex:latest
     container_name: living-pokedex
     ports:
-      - "8081:3000"
+      - "3000:3000"
     environment:
       - DATABASE_URL=postgres://pokedex:pokedex@db:5432/pokedex
       - PGHOST=db
