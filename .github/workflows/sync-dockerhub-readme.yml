@@ -1,0 +1,32 @@
+name: Sync Docker Hub description
+
+# Keeps the Docker Hub repository "overview" in sync with this repo's README.
+# Runs whenever README changes on main (or manually).
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   DOCKERHUB_USERNAME  – your Docker Hub username (caldoz)
+#   DOCKERHUB_TOKEN     – a Docker Hub access token with Read/Write scope
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - README.md
+      - .github/workflows/sync-dockerhub-readme.yml
+  workflow_dispatch: {}
+
+jobs:
+  sync-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Push README to Docker Hub
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: caldoz/living-pokedex
+          short-description: "Self-hosted Living Pokédex tracker across every mainline Pokémon game"
+          readme-filepath: ./README.md
