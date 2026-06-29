@@ -1,0 +1,41 @@
+# Living Pokédex — production stack.
+# Quick start:  docker compose up -d   then open http://localhost:8081
+services:
+  living-pokedex:
+    image: caldoz/living-pokedex:latest
+    container_name: living-pokedex
+    ports:
+      - "8081:3000"
+    environment:
+      - DATABASE_URL=postgres://pokedex:pokedex@db:5432/pokedex
+      - PGHOST=db
+      - PGPORT=5432
+      - PGUSER=pokedex
+      - PGPASSWORD=pokedex
+      - PGDATABASE=pokedex
+      # Recommended in production — sign your session cookies with a long random secret:
+      # - SESSION_SECRET=please-change-me
+      # Sign-in is local-only by default. OIDC/SSO is OFF and configured in-app (Settings → Admin).
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16
+    container_name: living-pokedex-db
+    environment:
+      - POSTGRES_USER=pokedex
+      - POSTGRES_PASSWORD=pokedex
+      - POSTGRES_DB=pokedex
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pokedex"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:

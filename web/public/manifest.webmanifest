@@ -1,0 +1,12 @@
+{
+  "name": "Living Pokédex",
+  "short_name": "Pokédex",
+  "description": "Track your living Pokédex across every game and region.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08101c",
+  "theme_color": "#0a1228",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}

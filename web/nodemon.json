@@ -1,0 +1,5 @@
+{
+  "watch": ["app.js", "auth", "constants.js", "db.js", "public", "render.js", "routes", "scraper.js", "utils.js"],
+  "ext": "js",
+  "ignore": ["scripts/**", "node_modules/**"]
+}
